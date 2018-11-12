@@ -1,2 +1,4 @@
 .idea/
 klyrics.iml
+*.log
+target
