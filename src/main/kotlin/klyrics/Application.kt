@@ -9,24 +9,7 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
 import java.util.concurrent.TimeUnit
 
-lateinit var server: NettyApplicationEngine
-
-fun main(args : Array<String>) {
-    start()
-}
-
-fun start() {
-    server = embeddedServer(Netty, port = 8080) {
-        routing()
-    }
-    server.start(wait = false)
-}
-
-fun stop() {
-    server.stop(1, 2, TimeUnit.SECONDS)
-}
-
-private fun Application.routing() {
+fun Application.klyrics() {
     routing {
         get("/") {
             val text = """
@@ -38,3 +21,4 @@ private fun Application.routing() {
         }
     }
 }
+

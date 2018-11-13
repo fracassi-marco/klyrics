@@ -11,18 +11,20 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver
 class AcceptanceTest {
 
     private lateinit var browser: PhantomJSDriver
+    private lateinit var klyrics: KLyrics
 
     @Before
     fun before() {
         WebDriverManager.phantomjs().setup()
         browser = PhantomJSDriver()
-        start()
+        klyrics = KLyrics()
+        klyrics.start()
     }
 
     @After
     fun after() {
         browser.close()
-        stop()
+        klyrics.stop()
     }
 
     @Test
@@ -38,19 +40,15 @@ class AcceptanceTest {
         assumeThat(browser.pageSource).contains(value)
     }
 
-    private fun clickSearch() {
+    private fun clickSearch() =
         browser.findElement(By.id("button-search")).click()
-    }
 
-    private fun writeTitle(value: String) {
+    private fun writeTitle(value: String) =
         browser.findElement(By.id("input-title")).sendKeys(value)
-    }
 
-    private fun writeAuthor(value: String) {
+    private fun writeAuthor(value: String) =
         browser.findElement(By.id("input-author")).sendKeys(value)
-    }
 
-    private fun openPage(page: String) {
+    private fun openPage(page: String) =
         browser.get("http://localhost:8080$page")
-    }
 }
