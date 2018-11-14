@@ -1,23 +1,22 @@
 package klyrics
 
+import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.*
+import io.ktor.freemarker.FreeMarker
+import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.http.ContentType
-import io.ktor.response.respondText
+import io.ktor.response.respond
 import io.ktor.routing.*
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import io.ktor.server.netty.NettyApplicationEngine
-import java.util.concurrent.TimeUnit
 
 fun Application.klyrics() {
+    install(FreeMarker) {
+        templateLoader = ClassTemplateLoader(Application::class.java.classLoader, "templates")
+    }
+
     routing {
         get("/") {
-            val text = """
-                <input type="text" id="input-title">
-                <input type="text" id="input-author">
-                <button type="submit" id="button-search">
-            """.trimMargin()
-            call.respondText(text, ContentType.Text.Html)
+            val content = FreeMarkerContent("homepage.ftl", emptyMap<String, String>(), contentType = ContentType.Text.Html)
+            call.respond(content)
         }
     }
 }
