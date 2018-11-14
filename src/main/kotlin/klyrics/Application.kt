@@ -15,8 +15,20 @@ fun Application.klyrics() {
 
     routing {
         get("/") {
-            val content = FreeMarkerContent("homepage.ftl", emptyMap<String, String>(), contentType = ContentType.Text.Html)
-            call.respond(content)
+            val useCase = HomepageUseCase(InMemorySongsRepository())
+            val model = mapOf(
+                    "categories" to useCase.categories(),
+                    "languages" to useCase.languages())
+            call.respond(FreeMarkerContent("homepage.ftl", model, contentType = ContentType.Text.Html))
+        }
+        get("/song/search") {
+            val useCase = FindSongsUseCase(InMemorySongsRepository())
+            val model = mapOf(
+                    "songs" to useCase.searchBy(call.parameters["category"]!!, call.parameters["language"]!!))
+            call.respond(FreeMarkerContent("songs.ftl", model, contentType = ContentType.Text.Html))
+        }
+        get("/song/{code}") {
+            call.respond(FreeMarkerContent("song.ftl", emptyMap<String, String>(), contentType = ContentType.Text.Html))
         }
     }
 }

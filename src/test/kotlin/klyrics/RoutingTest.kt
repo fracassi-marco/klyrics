@@ -11,9 +11,19 @@ import org.junit.Test
 class RoutingTest {
 
     @Test
-    fun testRequest(): Unit = withTestApplication(Application::klyrics) {
-        with(handleRequest(HttpMethod.Get, "/")) {
-            assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
+    fun shouldGetHomepage() = assertSucceded("/")
+
+    @Test
+    fun shouldSearchSongs() = assertSucceded("/song/search?category=Pop&language=Italian")
+
+    @Test
+    fun shouldShowSong() = assertSucceded("/song/code")
+
+    private fun assertSucceded(uri: String) {
+        withTestApplication(Application::klyrics) {
+            with(handleRequest(HttpMethod.Get, uri)) {
+                assertThat(response.status()).isEqualTo(HttpStatusCode.OK)
+            }
         }
     }
 }

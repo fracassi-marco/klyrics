@@ -1,5 +1,6 @@
 package klyrics
 
+import org.openqa.selenium.support.ui.Select;
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.assertj.core.api.Assumptions.assumeThat
 import org.junit.After
@@ -30,10 +31,26 @@ class AcceptanceTest {
     @Test
     fun shouldFindLyrics() {
         openPage("/")
-        writeAuthor("Aqua")
-        writeTitle("Barbie Girl")
+        choseCategory("Pop")
+        choseLanguage("English")
         clickSearch()
+        click("Aqua - Barbie Girl")
         assertThatLyricsContains("You can brush my hair")
+    }
+
+    private fun click(value: String) =
+            browser.findElement(By.linkText(value)).click()
+
+    private fun choseCategory(value: String) {
+        select("select-category", value)
+    }
+
+    private fun choseLanguage(value: String) {
+        select("select-language", value)
+    }
+
+    private fun select(id: String, value: String) {
+        Select(browser.findElement(By.id(id))).selectByVisibleText(value)
     }
 
     private fun assertThatLyricsContains(value: String) {
@@ -42,12 +59,6 @@ class AcceptanceTest {
 
     private fun clickSearch() =
         browser.findElement(By.id("button-search")).click()
-
-    private fun writeTitle(value: String) =
-        browser.findElement(By.id("input-title")).sendKeys(value)
-
-    private fun writeAuthor(value: String) =
-        browser.findElement(By.id("input-author")).sendKeys(value)
 
     private fun openPage(page: String) =
         browser.get("http://localhost:8080$page")
