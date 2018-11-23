@@ -1,6 +1,6 @@
 package klyrics
 
-class FindSongsUseCase(private val repository: SongsRepository) {
+class ListSongsUseCase(private val repository: SongsRepository) {
     fun searchBy(category: String, language: String) : List<Song> {
         return repository
                 .all()

@@ -22,7 +22,7 @@ fun Application.klyrics() {
             call.respond(FreeMarkerContent("homepage.ftl", model, contentType = ContentType.Text.Html))
         }
         get("/song/search") {
-            val useCase = FindSongsUseCase(InMemorySongsRepository())
+            val useCase = ListSongsUseCase(InMemorySongsRepository())
             val model = mapOf(
                     "songs" to useCase.searchBy(call.parameters["category"]!!, call.parameters["language"]!!))
             call.respond(FreeMarkerContent("songs.ftl", model, contentType = ContentType.Text.Html))
