@@ -7,6 +7,7 @@ import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.http.ContentType
 import io.ktor.response.respond
 import io.ktor.routing.*
+import io.ktor.util.pipeline.PipelineContext
 
 fun Application.klyrics() {
     install(FreeMarker) {
@@ -19,17 +20,24 @@ fun Application.klyrics() {
             val model = mapOf(
                     "categories" to useCase.categories(),
                     "languages" to useCase.languages())
-            call.respond(FreeMarkerContent("homepage.ftl", model, contentType = ContentType.Text.Html))
+            respondAsHtml("homepage", model)
         }
         get("/song/search") {
             val useCase = ListSongsUseCase(InMemorySongsRepository())
             val model = mapOf(
                     "songs" to useCase.searchBy(call.parameters["category"]!!, call.parameters["language"]!!))
-            call.respond(FreeMarkerContent("songs.ftl", model, contentType = ContentType.Text.Html))
+            respondAsHtml("songs", model)
         }
         get("/song/{code}") {
-            call.respond(FreeMarkerContent("song.ftl", emptyMap<String, String>(), contentType = ContentType.Text.Html))
+            respondAsHtml("song", null)
         }
     }
 }
+
+private suspend fun PipelineContext<Unit, ApplicationCall>.respondAsHtml(view: String, model: Any?) {
+    call.respond(asHtml(model, view))
+}
+
+private fun asHtml(model: Any?, view: String ) =
+        FreeMarkerContent("$view.ftl", model, contentType = ContentType.Text.Html)
 
