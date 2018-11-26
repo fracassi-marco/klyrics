@@ -29,12 +29,12 @@ fun Application.klyrics() {
             respondAsHtml("songs", model)
         }
         get("/song/{code}") {
-            respondAsHtml("song", null)
+            respondAsHtml("song")
         }
     }
 }
 
-private suspend fun PipelineContext<Unit, ApplicationCall>.respondAsHtml(view: String, model: Any?) {
+private suspend fun PipelineContext<Unit, ApplicationCall>.respondAsHtml(view: String, model: Any? = null) {
     call.respond(asHtml(model, view))
 }
 
