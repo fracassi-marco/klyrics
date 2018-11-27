@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <kotlin.version>1.3.0</kotlin.version>
+        <kotlin.version>1.3.10</kotlin.version>
         <junit.version>4.12</junit.version>
         <ktor.version>1.0.0-beta-3</ktor.version>
     </properties>
@@ -95,6 +95,26 @@
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-freemarker</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-core</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-apache</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-json</artifactId>
+            <version>${ktor.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-client-gson</artifactId>
             <version>${ktor.version}</version>
         </dependency>
         <dependency>

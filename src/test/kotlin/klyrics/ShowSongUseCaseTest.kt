@@ -1,7 +1,9 @@
 package klyrics
 
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -15,10 +17,11 @@ class ShowSongUseCaseTest {
         every { songsRepository.all() } returns listOf(
                 Song("Jovanotti", "Bella", "Rap", "Italian"))
 
-        every { lyricsRepository.get("Jovanotti", "Bella") } returns "the text";
+        coEvery {  lyricsRepository.get("Jovanotti", "Bella") } returns "the text";
 
-        val song = ShowSongUseCase(songsRepository, lyricsRepository).load("jovanotti-bella")
-
-        assertThat(song.lyrics).contains("the text")
+        runBlocking {
+            val song = ShowSongUseCase(songsRepository, lyricsRepository).load("jovanotti-bella")
+            assertThat(song.lyrics).contains("the text")
+        }
     }
 }
