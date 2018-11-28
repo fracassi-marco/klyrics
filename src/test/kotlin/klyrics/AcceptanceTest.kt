@@ -54,7 +54,7 @@ class AcceptanceTest {
     }
 
     private fun assertThatLyricsContains(value: String) {
-        assumeThat(browser.pageSource).contains(value)
+        assumeThat(browser.pageSource).containsIgnoringCase(value)
     }
 
     private fun clickSearch() =

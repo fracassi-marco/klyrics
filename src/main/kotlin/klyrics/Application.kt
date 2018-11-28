@@ -29,7 +29,10 @@ fun Application.klyrics() {
             respondAsHtml("songs", model)
         }
         get("/song/{code}") {
-            respondAsHtml("song")
+            val song = ShowSongUseCase(InMemorySongsRepository(), LyricsOvhLyricsRepository()).load(call.parameters["code"]!!)
+            val model = mapOf(
+                    "song" to song)
+            respondAsHtml("song", model)
         }
     }
 }
