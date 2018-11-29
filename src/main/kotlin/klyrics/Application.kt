@@ -5,14 +5,20 @@ import io.ktor.application.*
 import io.ktor.freemarker.FreeMarker
 import io.ktor.freemarker.FreeMarkerContent
 import io.ktor.http.ContentType
+import io.ktor.http.content.*
 import io.ktor.response.respond
 import io.ktor.routing.*
 import io.ktor.util.pipeline.PipelineContext
+import java.io.File
 
 fun Application.klyrics() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(Application::class.java.classLoader, "templates")
     }
+
+    val path = System.getProperty("user.dir")
+
+    println("Working Directory = $path")
 
     routing {
         get("/") {
@@ -33,6 +39,10 @@ fun Application.klyrics() {
             val model = mapOf(
                     "song" to song)
             respondAsHtml("song", model)
+        }
+        static("assets") {
+            staticRootFolder = File("src/main/resources")
+            files("assets")
         }
     }
 }
