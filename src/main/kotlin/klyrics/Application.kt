@@ -11,7 +11,7 @@ import io.ktor.routing.*
 import io.ktor.util.pipeline.PipelineContext
 import java.io.File
 
-fun Application.klyrics() {
+fun Application.klyrics(songsRepository: SongsRepository, lyricsRepository: LyricsRepository) {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(Application::class.java.classLoader, "templates")
     }
@@ -22,20 +22,20 @@ fun Application.klyrics() {
 
     routing {
         get("/") {
-            val useCase = HomepageUseCase(InMemorySongsRepository())
+            val useCase = HomepageUseCase(songsRepository)
             val model = mapOf(
                     "categories" to useCase.categories(),
                     "languages" to useCase.languages())
             respondAsHtml("homepage", model)
         }
         get("/song/search") {
-            val useCase = ListSongsUseCase(InMemorySongsRepository())
+            val useCase = ListSongsUseCase(songsRepository)
             val model = mapOf(
                     "songs" to useCase.searchBy(call.parameters["category"]!!, call.parameters["language"]!!))
             respondAsHtml("songs", model)
         }
         get("/song/{code}") {
-            val song = ShowSongUseCase(InMemorySongsRepository(), LyricsOvhLyricsRepository()).load(call.parameters["code"]!!)
+            val song = ShowSongUseCase(songsRepository, lyricsRepository).load(call.parameters["code"]!!)
             val model = mapOf(
                     "song" to song)
             respondAsHtml("song", model)

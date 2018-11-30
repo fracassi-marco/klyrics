@@ -6,7 +6,7 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
 import java.util.concurrent.TimeUnit
 
-fun main(args : Array<String>) {
+fun main(args: Array<String>) {
     KLyrics().start()
 }
 
@@ -15,7 +15,9 @@ class KLyrics {
     lateinit var server: NettyApplicationEngine
 
     fun start() {
-        server = embeddedServer(Netty, port = 8080, module = Application::klyrics)
+        server = embeddedServer(Netty, port = 8080, module = {
+            klyrics(InMemorySongsRepository(), LyricsOvhLyricsRepository())
+        })
         server.start(wait = false)
     }
 
