@@ -956,7 +956,7 @@ legend {
 
 .s013 form .inner-form .input-wrap.second {
   min-width: 262px;
-  border-radius: 0 3px 3px 0;
+  border-radius: 8px;
   border-left: 1px solid #e5e5e5;
 }
 
@@ -1015,7 +1015,7 @@ legend {
   background: #fff;
   padding: 10px 15px;
   margin-top: 10px;
-  border-radius: 3px;
+  border-radius: 8px;
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -1062,7 +1062,7 @@ legend {
   padding: 0 15px;
   background: #fa4251;
   white-space: nowrap;
-  border-radius: 3px;
+  border-radius: 8px;
   font-size: 16px;
   color: #fff;
   transition: all .2s ease-out, color .2s ease-out;
@@ -1094,3 +1094,43 @@ legend {
 }
 
 /*# sourceMappingURL=Searchs_013.css.map */
+
+.songlist a, .songlist p {
+    padding: 30px;
+    margin: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    color: #000;
+    line-height:90px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.buttons {
+    margin:40px;
+}
+
+.buttons a {
+    padding: 20px;
+    margin: 15px;
+    background-color: #fa4251;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.container {
+    display:block;
+    text-align:center;
+}
+
+select {
+    border: 0;
+    background-color: #fff;
+    font-weight: bolder;
+}
