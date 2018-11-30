@@ -1101,6 +1101,9 @@ legend {
     background-color: #fff;
     border-radius: 8px;
     color: #000;
+}
+
+.songlist a {
     line-height:90px;
 }
 

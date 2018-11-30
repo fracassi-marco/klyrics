@@ -9,7 +9,7 @@ class InMemorySongsRepository : SongsRepository {
                 Song("Shandon", "Nice Try", "Ska", "Italian"),
                 Song("U2", "Pride", "Rock", "English"),
                 Song("Aqua", "Barbie Girl", "Pop", "English"),
-                Song("U2", "Pride", "Pop", "English"))
+                Song("U2", "Prides", "Pop", "English"))
     }
 
 }
